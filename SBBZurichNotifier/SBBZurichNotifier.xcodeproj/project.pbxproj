@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE40D9A21D8C805800D68585 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE40D9A11D8C805800D68585 /* Alamofire.framework */; };
 		AEA5B8EA1D8C7C4400A64D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5B8E91D8C7C4300A64D95 /* AppDelegate.swift */; };
 		AEA5B8EC1D8C7C4400A64D95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5B8EB1D8C7C4400A64D95 /* ViewController.swift */; };
 		AEA5B8EF1D8C7C4400A64D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEA5B8ED1D8C7C4400A64D95 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE40D9A11D8C805800D68585 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		AEA5B8E61D8C7C4300A64D95 /* SBBZurichNotifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBBZurichNotifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5B8E91D8C7C4300A64D95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA5B8EB1D8C7C4400A64D95 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +31,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE40D9A21D8C805800D68585 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE40D9A01D8C805800D68585 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE40D9A11D8C805800D68585 /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AEA5B8DD1D8C7C4300A64D95 = {
 			isa = PBXGroup;
 			children = (
 				AEA5B8E81D8C7C4300A64D95 /* SBBZurichNotifier */,
 				AEA5B8E71D8C7C4300A64D95 /* Products */,
+				AE40D9A01D8C805800D68585 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +86,7 @@
 				AEA5B8E21D8C7C4300A64D95 /* Sources */,
 				AEA5B8E31D8C7C4300A64D95 /* Frameworks */,
 				AEA5B8E41D8C7C4300A64D95 /* Resources */,
+				AEA5B8FB1D8C7CEF00A64D95 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -131,6 +144,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AEA5B8FB1D8C7CEF00A64D95 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AEA5B8E21D8C7C4300A64D95 /* Sources */ = {
@@ -260,6 +290,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2EZDW5DVTJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Carthage/Build/iOS/",
+				);
 				INFOPLIST_FILE = SBBZurichNotifier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickbalestra.SBBZurichNotifier;
@@ -273,6 +307,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2EZDW5DVTJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Carthage/Build/iOS/",
+				);
 				INFOPLIST_FILE = SBBZurichNotifier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickbalestra.SBBZurichNotifier;
@@ -300,6 +338,7 @@
 				AEA5B8FA1D8C7C4400A64D95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
