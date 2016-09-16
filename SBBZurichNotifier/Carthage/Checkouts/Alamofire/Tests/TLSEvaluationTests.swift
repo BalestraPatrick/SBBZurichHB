@@ -84,24 +84,21 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(error)
+        XCTAssertNotNil(error, "error should not be nil")
 
         if let error = error as? URLError {
-            XCTAssertEqual(error.code, .serverCertificateUntrusted)
-        } else if let error = error as? NSError {
-            XCTAssertEqual(error.domain, kCFErrorDomainCFNetwork as String)
-            XCTAssertEqual(error.code, Int(CFNetworkErrors.cfErrorHTTPSProxyConnectionFailure.rawValue))
+            XCTAssertEqual(error.code, .serverCertificateUntrusted, "code should be untrusted server certficate")
         } else {
-            XCTFail("error should be a URLError or NSError from CFNetwork")
+            XCTFail("error should be a URLError")
         }
     }
 
@@ -119,9 +116,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -155,9 +152,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -195,9 +192,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -229,9 +226,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -257,9 +254,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -285,9 +282,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -315,9 +312,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -349,9 +346,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -377,9 +374,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -405,9 +402,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -431,9 +428,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -463,9 +460,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 
@@ -493,9 +490,9 @@ class TLSEvaluationExpiredLeafCertificateTestCase: BaseTestCase {
         var error: Error?
 
         // When
-        manager.request(urlString)
-            .response { resp in
-                error = resp.error
+        manager.request(urlString, withMethod: .get)
+            .response { _, _, _, responseError in
+                error = responseError
                 expectation?.fulfill()
             }
 

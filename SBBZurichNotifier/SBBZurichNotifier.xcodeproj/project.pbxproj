@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AE40D9A21D8C805800D68585 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE40D9A11D8C805800D68585 /* Alamofire.framework */; };
+		AE5CECD71D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5CECD61D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift */; };
+		AE86B5011D8C982C00121610 /* LoudspeakerMessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE86B5001D8C982C00121610 /* LoudspeakerMessageRequest.swift */; };
+		AE86B5041D8CA41800121610 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE86B5021D8CA27300121610 /* Unbox.framework */; };
 		AEA5B8EA1D8C7C4400A64D95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5B8E91D8C7C4300A64D95 /* AppDelegate.swift */; };
 		AEA5B8EC1D8C7C4400A64D95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5B8EB1D8C7C4400A64D95 /* ViewController.swift */; };
 		AEA5B8EF1D8C7C4400A64D95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEA5B8ED1D8C7C4400A64D95 /* Main.storyboard */; };
@@ -17,6 +20,9 @@
 
 /* Begin PBXFileReference section */
 		AE40D9A11D8C805800D68585 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		AE5CECD61D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoudspeakerMessageRecord.swift; path = ../LoudspeakerMessageRecord.swift; sourceTree = "<group>"; };
+		AE86B5001D8C982C00121610 /* LoudspeakerMessageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoudspeakerMessageRequest.swift; sourceTree = "<group>"; };
+		AE86B5021D8CA27300121610 /* Unbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Unbox.framework; path = Carthage/Build/iOS/Unbox.framework; sourceTree = "<group>"; };
 		AEA5B8E61D8C7C4300A64D95 /* SBBZurichNotifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBBZurichNotifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5B8E91D8C7C4300A64D95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AEA5B8EB1D8C7C4400A64D95 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE40D9A21D8C805800D68585 /* Alamofire.framework in Frameworks */,
+				AE86B5041D8CA41800121610 /* Unbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +48,7 @@
 		AE40D9A01D8C805800D68585 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE86B5021D8CA27300121610 /* Unbox.framework */,
 				AE40D9A11D8C805800D68585 /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -68,6 +76,8 @@
 			children = (
 				AEA5B8E91D8C7C4300A64D95 /* AppDelegate.swift */,
 				AEA5B8EB1D8C7C4400A64D95 /* ViewController.swift */,
+				AE86B5001D8C982C00121610 /* LoudspeakerMessageRequest.swift */,
+				AE5CECD61D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift */,
 				AEA5B8ED1D8C7C4400A64D95 /* Main.storyboard */,
 				AEA5B8F01D8C7C4400A64D95 /* Assets.xcassets */,
 				AEA5B8F21D8C7C4400A64D95 /* LaunchScreen.storyboard */,
@@ -153,6 +163,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Unbox.framework",
 			);
 			outputPaths = (
 			);
@@ -167,8 +178,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE86B5011D8C982C00121610 /* LoudspeakerMessageRequest.swift in Sources */,
 				AEA5B8EC1D8C7C4400A64D95 /* ViewController.swift in Sources */,
 				AEA5B8EA1D8C7C4400A64D95 /* AppDelegate.swift in Sources */,
+				AE5CECD71D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +306,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Carthage/Build/iOS/",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SBBZurichNotifier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -310,6 +324,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Carthage/Build/iOS/",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SBBZurichNotifier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -1,1 +1,3 @@
-github "Alamofire/Alamofire" "4.0.0"
+github "Alamofire/Alamofire" "4.0.0-beta.2"
+github "johnsundell/Unbox" "bc4de75cbefaacebb0a2a6c07918a07f8eb8f17b"
+github "serejahh/UnboxedAlamofire" "1.0.1"

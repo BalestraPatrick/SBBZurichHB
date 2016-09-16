@@ -171,11 +171,7 @@ class CacheTestCase: BaseTestCase {
         var urlRequest = URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: requestTimeout)
         urlRequest.httpMethod = HTTPMethod.get.rawValue
 
-        do {
-            return try URLEncoding.default.encode(urlRequest, with: parameters)
-        } catch {
-            return urlRequest
-        }
+        return ParameterEncoding.url.encode(urlRequest, parameters: parameters).0
     }
 
     @discardableResult
@@ -191,8 +187,8 @@ class CacheTestCase: BaseTestCase {
 
         request.response(
             queue: queue,
-            completionHandler: { response in
-                completion(response.request, response.response)
+            completionHandler: { _, response, data, _ in
+                completion(request.request, response)
             }
         )
 

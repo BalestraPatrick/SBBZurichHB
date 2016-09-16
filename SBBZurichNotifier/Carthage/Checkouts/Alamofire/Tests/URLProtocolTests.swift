@@ -61,11 +61,7 @@ class ProxyURLProtocol: URLProtocol {
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         if let headers = request.allHTTPHeaderFields {
-            do {
-                return try URLEncoding.default.encode(request, with: headers)
-            } catch {
-                return request
-            }
+            return ParameterEncoding.url.encode(request, parameters: headers).0
         }
 
         return request
@@ -78,10 +74,12 @@ class ProxyURLProtocol: URLProtocol {
     // MARK: Loading Methods
 
     override func startLoading() {
-        // rdar://26849668 - URLProtocol had some API's that didnt make the value type conversion
-        let urlRequest = (request.urlRequest! as NSURLRequest).mutableCopy() as! NSMutableURLRequest
-        URLProtocol.setProperty(true, forKey: PropertyKeys.handledByForwarderURLProtocol, in: urlRequest)
-        activeTask = session.dataTask(with: urlRequest as URLRequest)
+        // rdar://26849668
+        // Hopefully will be fixed in a future seed
+        // URLProtocol had some API's that didnt make the value type conversion
+        let mutableRequest = (request.urlRequest as NSURLRequest).mutableCopy() as! NSMutableURLRequest
+        URLProtocol.setProperty(true, forKey: PropertyKeys.handledByForwarderURLProtocol, in: mutableRequest)
+        activeTask = session.dataTask(with: mutableRequest as URLRequest)
         activeTask?.resume()
     }
 
@@ -145,24 +143,31 @@ class URLProtocolTestCase: BaseTestCase {
 
         let expectation = self.expectation(description: "GET request should succeed")
 
-        var response: DefaultDataResponse?
+        var request: URLRequest?
+        var response: HTTPURLResponse?
+        var data: Data?
+        var error: Error?
 
         // When
         manager.request(urlRequest)
-            .response { resp in
-                response = resp
+            .response { responseRequest, responseResponse, responseData, responseError in
+                request = responseRequest
+                response = responseResponse
+                data = responseData
+                error = responseError
+
                 expectation.fulfill()
             }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(response?.request)
-        XCTAssertNotNil(response?.response)
-        XCTAssertNotNil(response?.data)
-        XCTAssertNil(response?.error)
+        XCTAssertNotNil(request, "request should not be nil")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertNotNil(data, "data should not be nil")
+        XCTAssertNil(error, "error should be nil")
 
-        if let headers = response?.response?.allHeaderFields {
+        if let headers = response?.allHeaderFields {
             XCTAssertEqual(headers["request-header"] as? String, "foobar")
             XCTAssertEqual(headers["session-configuration-header"] as? String, "foo")
         } else {
