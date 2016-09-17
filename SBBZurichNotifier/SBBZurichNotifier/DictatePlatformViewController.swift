@@ -13,7 +13,7 @@ class DictatePlatformViewController: UIViewController {
     @IBOutlet fileprivate weak var responseLabel: UILabel!
     
     fileprivate let speechRecognizer = SpeechRecognizer()
-    var callback: ((Int) -> ())? = nil
+    var callback: ((Int?) -> ())? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +41,9 @@ class DictatePlatformViewController: UIViewController {
             platformNumber = platform
         }
 
-        if let platform = platformNumber {
-            dismiss(animated: true, completion: { _ in
-                self.callback?(platform)
-            })
-        }
+        dismiss(animated: true)
+        self.callback?(platformNumber)
+
     }
     
     func parsePlatformAsNumber() -> Int? {

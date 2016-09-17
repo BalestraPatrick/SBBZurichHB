@@ -56,22 +56,35 @@ class PlatformsViewController: UIViewController {
         return .lightContent
     }
     
-    func handlePlatformDictation(platform: Int) {
-        var platformFound = false
-        for (index, platformName) in platforms.enumerated() {
-            if platformName.contains("\(platform)") {
-                let indexPath = IndexPath(item: index + 1, section: 0)
-                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .top)
-                collectionView(collectionView, didSelectItemAt: indexPath)
-                platformFound = true
+    fileprivate func handlePlatformDictation(platform: Int?) {
+        
+        // UIKit fun
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            
+            guard let platformNumber = platform else {
+                return self.showErrorMessage(platform: platform)
+            }
+            
+            var platformFound = false
+            for (index, platformName) in self.platforms.enumerated() {
+                if platformName.contains("\(platformNumber)") {
+                    let indexPath = IndexPath(item: index + 1, section: 0)
+                    self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .top)
+                    self.collectionView(self.collectionView, didSelectItemAt: indexPath)
+                    platformFound = true
+                }
+            }
+            
+            if platformFound == false {
+                self.showErrorMessage(platform: platform)
             }
         }
-        
-        if platformFound == false {
-            let alert = UIAlertController(title: "Could not find any message for the platform \(platform)", message: "Please try again later.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .destructive))
-            present(alert, animated: true)
-        }
+    }
+    
+    private func showErrorMessage(platform: Int?) {
+        let alert = UIAlertController(title: "Could not find any message for the platform \(platform)", message: "Please try again later.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive))
+        self.present(alert, animated: true)
     }
     
     @IBAction func about(_ sender: AnyObject) {

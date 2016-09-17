@@ -100,6 +100,7 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
     
     func stopRecording() {
         audioEngine.stop()
+        textEvent.raise(data: (nil, true))
         recognitionRequest = nil
         recognitionTask = nil
     }
