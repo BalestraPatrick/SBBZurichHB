@@ -62,13 +62,33 @@ extension PlatformsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return platforms.count
+        return platforms.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlatformCollectionViewCell.reuseIdentifier, for: indexPath) as! PlatformCollectionViewCell
-        cell.titleLabel.text = platforms[indexPath.row]
-        return cell
+        
+        switch indexPath.row {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SpeechCell", for: indexPath)
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlatformCollectionViewCell.reuseIdentifier, for: indexPath) as! PlatformCollectionViewCell
+            cell.titleLabel.text = platforms[indexPath.row - 1]
+            return cell
+        }
+    }
+}
+
+extension PlatformsViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            // TODO: dictation
+            break
+        default:
+            performSegue(withIdentifier: "PlatformMessagesDisplayerViewControllerSegue", sender: nil)
+        }
     }
 }
 
@@ -78,17 +98,11 @@ extension PlatformsViewController {
         if segue.identifier == "PlatformMessagesDisplayerViewControllerSegue" {
             let destination = segue.destination as! PlatformMessagesDisplayerViewController
             if let selectedItems = collectionView.indexPathsForSelectedItems, let selection = selectedItems.first {
-                let platform = platforms[selection.row]
+                let platform = platforms[selection.row - 1]
                 destination.platform = platform
                 destination.messages = platformsMessages[platform]!
             }
         }
     }
     
-    func messages(messages: [String: LoudspeakerMessages], for platform: String) -> [String : LoudspeakerMessages] {
-        return [:]
-//        return messages.filter({ message -> Bool in
-//            message.value
-//        })
-    }
 }

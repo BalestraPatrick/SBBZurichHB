@@ -9,7 +9,7 @@
         <!--Platform Messages Displayer View Controller-->
         <scene sceneID="nZw-Rf-d2a">
             <objects>
-                <viewController storyboardIdentifier="PlatformMessagesDisplayerViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="1qU-KI-vgQ" customClass="PlatformMessagesDisplayerViewController" customModule="SBBZurichNotifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlatformMessagesDisplayerViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="1qU-KI-vgQ" customClass="PlatformMessagesDisplayerViewController" customModule="SBBZurichNotifier" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4QS-0c-AFW"/>
                         <viewControllerLayoutGuide type="bottom" id="wEf-D1-GrZ"/>
@@ -25,10 +25,10 @@
                                     <size key="itemSize" width="323" height="103"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="20" minY="10" maxX="20" maxY="10"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlatformCollectionViewCell" id="ViY-JJ-ZXH" customClass="PlatformCollectionViewCell" customModule="SBBZurichNotifier" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MessageCollectionViewCell" id="ViY-JJ-ZXH" customClass="MessageCollectionViewCell" customModule="SBBZurichNotifier" customModuleProvider="target">
                                         <rect key="frame" x="26" y="10" width="323" height="103"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -45,19 +45,43 @@
                                                                     <frame key="frameInset"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2s-Tm-bEp">
-                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4xi-0x-jtU">
+                                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <state key="normal" image="speaker"/>
+                                                                            <connections>
+                                                                                <action selector="speak:" destination="ViY-JJ-ZXH" eventType="touchUpInside" id="7eX-8z-Aus"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BEP-M8-ycC">
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                        </textView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="created_at" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2s-Tm-bEp">
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="22" id="8dK-3m-7GD"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="J2s-Tm-bEp" firstAttribute="centerX" secondItem="kfe-a5-RwC" secondAttribute="centerX" id="r6O-Ba-cQc"/>
-                                                                        <constraint firstItem="J2s-Tm-bEp" firstAttribute="centerY" secondItem="kfe-a5-RwC" secondAttribute="centerY" id="sLl-wm-LkZ"/>
+                                                                        <constraint firstItem="J2s-Tm-bEp" firstAttribute="leading" secondItem="BEP-M8-ycC" secondAttribute="trailing" constant="8" id="DEm-VX-qGU"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="J2s-Tm-bEp" secondAttribute="bottom" constant="8" id="RnC-hM-9RB"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="J2s-Tm-bEp" secondAttribute="trailing" constant="8" id="dnE-w2-g9J"/>
+                                                                        <constraint firstItem="BEP-M8-ycC" firstAttribute="top" secondItem="kfe-a5-RwC" secondAttribute="top" constant="8" id="gj3-Bf-BJi"/>
+                                                                        <constraint firstItem="4xi-0x-jtU" firstAttribute="centerY" secondItem="kfe-a5-RwC" secondAttribute="centerY" id="q3d-5H-hlq"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="4xi-0x-jtU" secondAttribute="trailing" constant="8" id="uHN-pQ-Yqc"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="BEP-M8-ycC" secondAttribute="bottom" constant="8" id="utC-nF-83r"/>
+                                                                        <constraint firstItem="BEP-M8-ycC" firstAttribute="leading" secondItem="kfe-a5-RwC" secondAttribute="leading" constant="8" id="ylp-3q-4mu"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <vibrancyEffect>
-                                                                    <blurEffect style="light"/>
+                                                                    <blurEffect style="dark"/>
                                                                 </vibrancyEffect>
                                                             </visualEffectView>
                                                         </subviews>
@@ -80,10 +104,15 @@
                                             <constraint firstAttribute="bottom" secondItem="JRR-Zu-cQd" secondAttribute="bottom" id="JuQ-ge-4he"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="messageTextView" destination="BEP-M8-ycC" id="fmc-h1-lcl"/>
                                             <outlet property="titleLabel" destination="J2s-Tm-bEp" id="VtP-ya-aOZ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="1qU-KI-vgQ" id="pmg-go-VkN"/>
+                                    <outlet property="delegate" destination="1qU-KI-vgQ" id="XGU-cF-BYD"/>
+                                </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRX-jN-Din">
                                 <subviews>
@@ -93,7 +122,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sXb-aH-6wS">
-                                        <state key="normal" image="close-button"/>
+                                        <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="dismiss:" destination="1qU-KI-vgQ" eventType="touchUpInside" id="vjw-GL-PJo"/>
                                         </connections>
@@ -138,6 +167,7 @@
                             <constraint firstAttribute="trailing" secondItem="iZk-jy-kuZ" secondAttribute="trailing" id="z9i-pj-vCJ"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="iZk-jy-kuZ" id="eIp-7H-7DQ"/>
@@ -150,8 +180,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close-button" width="16" height="16"/>
+        <image name="close" width="16" height="16"/>
         <image name="ffs" width="16" height="16"/>
         <image name="logo" width="160" height="53"/>
+        <image name="speaker" width="16" height="16"/>
     </resources>
 </document>

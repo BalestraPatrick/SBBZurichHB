@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -81,7 +82,68 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="titleLabel" destination="7DJ-p3-ieT" id="93b-3A-7hy"/>
-                                            <segue destination="E94-8G-u2m" kind="showDetail" identifier="PlatformMessagesDisplayerViewControllerSegue" id="PSA-SL-W4p"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SpeechCell" id="FE3-rJ-ykS" customClass="PlatformCollectionViewCell" customModule="SBBZurichNotifier" customModuleProvider="target">
+                                        <rect key="frame" x="243" y="10" width="112" height="103"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="112" height="103"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-pi-GEu">
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="2Up-s2-2qd">
+                                                        <frame key="frameInset"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4f8-RM-xCa">
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hvx-XC-nXO">
+                                                                    <frame key="frameInset"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dictate Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4NP-X5-DMD">
+                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphone" translatesAutoresizingMaskIntoConstraints="NO" id="FFq-Pg-iY4">
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" secondItem="FFq-Pg-iY4" secondAttribute="height" multiplier="1:1" id="vPf-L2-dLq"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="4NP-X5-DMD" firstAttribute="centerX" secondItem="hvx-XC-nXO" secondAttribute="centerX" id="N6N-Fk-Ptw"/>
+                                                                        <constraint firstItem="FFq-Pg-iY4" firstAttribute="centerX" secondItem="hvx-XC-nXO" secondAttribute="centerX" id="hG7-RM-ULa"/>
+                                                                        <constraint firstItem="4NP-X5-DMD" firstAttribute="top" secondItem="FFq-Pg-iY4" secondAttribute="bottom" constant="8" id="o7L-gt-qAE"/>
+                                                                        <constraint firstItem="FFq-Pg-iY4" firstAttribute="top" secondItem="hvx-XC-nXO" secondAttribute="top" constant="20" id="xvS-ZW-sL4"/>
+                                                                    </constraints>
+                                                                </view>
+                                                                <vibrancyEffect>
+                                                                    <blurEffect style="light"/>
+                                                                </vibrancyEffect>
+                                                            </visualEffectView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="4f8-RM-xCa" firstAttribute="top" secondItem="2Up-s2-2qd" secondAttribute="top" id="7aC-O3-CmV"/>
+                                                            <constraint firstAttribute="trailing" secondItem="4f8-RM-xCa" secondAttribute="trailing" id="Muk-iW-ok2"/>
+                                                            <constraint firstItem="4f8-RM-xCa" firstAttribute="leading" secondItem="2Up-s2-2qd" secondAttribute="leading" id="RvH-zP-kgE"/>
+                                                            <constraint firstAttribute="bottom" secondItem="4f8-RM-xCa" secondAttribute="bottom" id="b8I-0H-1d7"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <blurEffect style="light"/>
+                                                </visualEffectView>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="XPo-pi-GEu" firstAttribute="leading" secondItem="FE3-rJ-ykS" secondAttribute="leading" id="MeW-Qf-P1j"/>
+                                            <constraint firstItem="XPo-pi-GEu" firstAttribute="top" secondItem="FE3-rJ-ykS" secondAttribute="top" id="XjT-Ie-0b4"/>
+                                            <constraint firstAttribute="trailing" secondItem="XPo-pi-GEu" secondAttribute="trailing" id="Zz5-fu-SaJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="XPo-pi-GEu" secondAttribute="bottom" id="yQk-CX-6Gy"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="4NP-X5-DMD" id="h4L-Ua-RGb"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -143,6 +205,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="collectionView" destination="mVC-EV-UJg" id="U0g-CW-rl8"/>
+                        <segue destination="E94-8G-u2m" kind="show" identifier="PlatformMessagesDisplayerViewControllerSegue" id="NDF-Cz-YoU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -164,5 +227,6 @@
         <image name="about" width="16" height="16"/>
         <image name="ffs" width="16" height="16"/>
         <image name="logo" width="160" height="53"/>
+        <image name="microphone" width="16" height="16"/>
     </resources>
 </document>
