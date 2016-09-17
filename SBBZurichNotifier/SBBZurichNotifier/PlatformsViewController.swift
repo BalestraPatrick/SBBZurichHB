@@ -53,6 +53,13 @@ class PlatformsViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    @IBAction func about(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: "Lalalal", message: "Miao", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
+        present(alertController, animated: true)
+    }
+    
 }
 
 extension PlatformsViewController: UICollectionViewDataSource {
@@ -84,8 +91,12 @@ extension PlatformsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            // TODO: dictation
-            break
+            let destination = UIStoryboard(name: "Platforms", bundle: nil).instantiateViewController(withIdentifier: "DictatePlatformViewController") as! DictatePlatformViewController
+            destination.preferredContentSize = CGSize(width: 300, height: 300)
+            destination.transitioningDelegate = self
+            destination.modalPresentationStyle = .custom
+
+            present(destination, animated: true)
         default:
             performSegue(withIdentifier: "PlatformMessagesDisplayerViewControllerSegue", sender: nil)
         }
@@ -104,5 +115,11 @@ extension PlatformsViewController {
             }
         }
     }
+}
+
+extension PlatformsViewController: UIViewControllerTransitioningDelegate {
     
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
+        return PageSheetPresentationController(presentedViewController: presented, presenting: presenting)
+    }
 }

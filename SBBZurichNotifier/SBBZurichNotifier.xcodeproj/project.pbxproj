@@ -21,7 +21,11 @@
 		AEA5B8EC1D8C7C4400A64D95 /* PlatformsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA5B8EB1D8C7C4400A64D95 /* PlatformsViewController.swift */; };
 		AEA5B8F11D8C7C4400A64D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA5B8F01D8C7C4400A64D95 /* Assets.xcassets */; };
 		AEA5B8F41D8C7C4400A64D95 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEA5B8F21D8C7C4400A64D95 /* LaunchScreen.storyboard */; };
+		AEBDF84B1D8D73DA00A1AA6D /* DictatePlatform.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBDF8491D8D73DA00A1AA6D /* DictatePlatform.storyboard */; };
+		AEBDF84D1D8D747900A1AA6D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBDF84C1D8D747900A1AA6D /* Event.swift */; };
 		AED0C7691D8D5CFE00E66C7D /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED0C7681D8D5CFE00E66C7D /* DateFormatter.swift */; };
+		AED0C76B1D8D6F2F00E66C7D /* DictatePlatformViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED0C76A1D8D6F2F00E66C7D /* DictatePlatformViewController.swift */; };
+		AED0C76D1D8D70F200E66C7D /* PageSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED0C76C1D8D70F200E66C7D /* PageSheetPresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +45,11 @@
 		AEA5B8F01D8C7C4400A64D95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEA5B8F31D8C7C4400A64D95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AEA5B8F51D8C7C4400A64D95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEBDF84A1D8D73DA00A1AA6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DictatePlatform.storyboard; sourceTree = "<group>"; };
+		AEBDF84C1D8D747900A1AA6D /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		AED0C7681D8D5CFE00E66C7D /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		AED0C76A1D8D6F2F00E66C7D /* DictatePlatformViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictatePlatformViewController.swift; sourceTree = "<group>"; };
+		AED0C76C1D8D70F200E66C7D /* PageSheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSheetPresentationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,9 @@
 			children = (
 				AE5CECD61D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift */,
 				AED0C7681D8D5CFE00E66C7D /* DateFormatter.swift */,
+				AE5CECE71D8D368600DA2FA2 /* SpeechRecognizer.swift */,
+				AED0C76C1D8D70F200E66C7D /* PageSheetPresentationController.swift */,
+				AEBDF84C1D8D747900A1AA6D /* Event.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -92,7 +103,8 @@
 				AE5CECE01D8CFAEF00DA2FA2 /* PlatformMessagesDisplayer.storyboard */,
 				AE5CECDA1D8CFA1000DA2FA2 /* PlatformMessagesDisplayerViewController.swift */,
 				AE5CECE51D8D230300DA2FA2 /* MessageCollectionViewCell.swift */,
-				AE5CECE71D8D368600DA2FA2 /* SpeechRecognizer.swift */,
+				AEBDF8491D8D73DA00A1AA6D /* DictatePlatform.storyboard */,
+				AED0C76A1D8D6F2F00E66C7D /* DictatePlatformViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -200,6 +212,7 @@
 				AEA5B8F41D8C7C4400A64D95 /* LaunchScreen.storyboard in Resources */,
 				AE5CECE11D8CFAEF00DA2FA2 /* PlatformMessagesDisplayer.storyboard in Resources */,
 				AEA5B8F11D8C7C4400A64D95 /* Assets.xcassets in Resources */,
+				AEBDF84B1D8D73DA00A1AA6D /* DictatePlatform.storyboard in Resources */,
 				AE5CECE41D8CFB2200DA2FA2 /* Platforms.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,11 +245,14 @@
 				AED0C7691D8D5CFE00E66C7D /* DateFormatter.swift in Sources */,
 				AE5CECE61D8D230300DA2FA2 /* MessageCollectionViewCell.swift in Sources */,
 				AE5CECE81D8D368600DA2FA2 /* SpeechRecognizer.swift in Sources */,
+				AED0C76D1D8D70F200E66C7D /* PageSheetPresentationController.swift in Sources */,
+				AEBDF84D1D8D747900A1AA6D /* Event.swift in Sources */,
 				AE86B5011D8C982C00121610 /* LoudspeakerMessageRequest.swift in Sources */,
 				AEA5B8EC1D8C7C4400A64D95 /* PlatformsViewController.swift in Sources */,
 				AEA5B8EA1D8C7C4400A64D95 /* AppDelegate.swift in Sources */,
 				AE5CECD71D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift in Sources */,
 				AE5CECD91D8CC55F00DA2FA2 /* PlatformCollectionViewCell.swift in Sources */,
+				AED0C76B1D8D6F2F00E66C7D /* DictatePlatformViewController.swift in Sources */,
 				AE5CECDB1D8CFA1000DA2FA2 /* PlatformMessagesDisplayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +274,14 @@
 				AEA5B8F31D8C7C4400A64D95 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		AEBDF8491D8D73DA00A1AA6D /* DictatePlatform.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AEBDF84A1D8D73DA00A1AA6D /* Base */,
+			);
+			name = DictatePlatform.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

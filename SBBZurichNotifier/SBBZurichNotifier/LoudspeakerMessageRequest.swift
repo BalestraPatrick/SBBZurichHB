@@ -35,8 +35,10 @@ class LoudspeakerMessageRequest {
             URLQueryItem(name: "created_at_date", value: ">2016-08-26T12:55:02+00:00")
         ]
         
-        Alamofire.request(speakerMessagesURL.url!, encoding: JSONEncoding.default, headers: nil)
+        Alamofire
+            .request(speakerMessagesURL.url!, encoding: JSONEncoding.default, headers: nil)
             .responseJSON { response in
+                
                 guard response.result.isSuccess else { return print("Error")}
 
                 if let data = response.data {
