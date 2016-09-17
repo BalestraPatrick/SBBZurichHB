@@ -45,13 +45,33 @@ class PlatformsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let selectedItems = collectionView.indexPathsForSelectedItems, let selection = selectedItems.first {
-            collectionView.deselectItem(at: selection, animated: true)
+        if let selectedItems = collectionView.indexPathsForSelectedItems {
+            selectedItems.forEach { indexPath in
+                collectionView.deselectItem(at: indexPath, animated: true)
+            }
         }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    func handlePlatformDictation(platform: Int) {
+        var platformFound = false
+        for (index, platformName) in platforms.enumerated() {
+            if platformName.contains("\(platform)") {
+                let indexPath = IndexPath(item: index + 1, section: 0)
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .top)
+                collectionView(collectionView, didSelectItemAt: indexPath)
+                platformFound = true
+            }
+        }
+        
+        if platformFound == false {
+            let alert = UIAlertController(title: "Could not find any message for the platform \(platform)", message: "Please try again later.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .destructive))
+            present(alert, animated: true)
+        }
     }
     
     @IBAction func about(_ sender: AnyObject) {
@@ -95,7 +115,7 @@ extension PlatformsViewController: UICollectionViewDelegate {
             destination.preferredContentSize = CGSize(width: 300, height: 300)
             destination.transitioningDelegate = self
             destination.modalPresentationStyle = .custom
-
+            destination.callback = handlePlatformDictation
             present(destination, animated: true)
         default:
             performSegue(withIdentifier: "PlatformMessagesDisplayerViewControllerSegue", sender: nil)

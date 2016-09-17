@@ -27,7 +27,6 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
             switch authStatus {
             case .authorized:
                 print("Now authorized")
-                
             case .denied:
                 print("User denied access to speech recognition")
             case .restricted:
@@ -78,11 +77,10 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
             if error != nil || isFinal {
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
+                self.textEvent.raise(data: (result?.bestTranscription.formattedString, isFinal))
                 
                 self.recognitionRequest = nil
-                self.recognitionTask = nil
-                
-//                self.microphoneButton.isEnabled = true
+                self.recognitionTask = nil                
             }
         })
         
@@ -98,6 +96,12 @@ class SpeechRecognizer: NSObject, SFSpeechRecognizerDelegate {
         } catch {
             print("audioEngine couldn't start because of an error.")
         }
+    }
+    
+    func stopRecording() {
+        audioEngine.stop()
+        recognitionRequest = nil
+        recognitionTask = nil
     }
     
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
