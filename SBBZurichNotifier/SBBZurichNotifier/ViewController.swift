@@ -13,6 +13,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request = LoudspeakerMessageRequest().get()
+        LoudspeakerMessageRequest().getMessages(forPlatform: "41/42") { messages in
+            print(messages)
+            messages.forEach { message in
+                message.value.forEach({ (record) in
+                    
+                })
+            }
+        }
     }
 }

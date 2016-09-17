@@ -22,12 +22,13 @@ class LoudspeakerMessageRequest {
         return components
     }()
 
-    func get() {
+    func getMessages(forPlatform platforms: String, completion: @escaping ([String: [LoudspeakerMessageRecord]]) -> ()) {
 
         var speakerMessagesURL = baseURLComponents
         speakerMessagesURL.queryItems = [
             URLQueryItem(name: "dataset", value: "loudspeaker-messages"),
-            URLQueryItem(name: "q", value: "lg_bezeichnung=8"),
+            URLQueryItem(name: "rows", value: "250"),
+            URLQueryItem(name: "facet", value: "lg_bezeichnung")
         ]
         
         Alamofire.request(speakerMessagesURL.url!, encoding: JSONEncoding.default, headers: nil)
@@ -42,7 +43,21 @@ class LoudspeakerMessageRequest {
                         return message
                     }
                     
-                    print(messages)
+                    // Group messages based on the am_id
+                    var groupedMessages = [String: [LoudspeakerMessageRecord]]()
+                    for message in messages {
+                        if groupedMessages.keys.contains(message.am_id) {
+                            groupedMessages[message.am_id]?.append(message)
+                        } else {
+                            groupedMessages[message.am_id] = [message]
+                        }
+                    }
+                    
+                    var sortedGroupedMessages = groupedMessages
+                    groupedMessages.forEach { message in
+                        sortedGroupedMessages[message.key] = message.value.sorted { $0.amd_id < $1.amd_id }
+                    }
+                    completion(sortedGroupedMessages)                    
                 }
         }
     }

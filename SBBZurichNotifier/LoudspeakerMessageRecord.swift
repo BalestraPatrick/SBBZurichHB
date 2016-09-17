@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Unbox
 
 struct LoudspeakerMessageRecord {
     let af_text: String
