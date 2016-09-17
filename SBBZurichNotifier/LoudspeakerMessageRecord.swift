@@ -14,23 +14,16 @@ struct LoudspeakerMessageRecord {
     let am_id: String
     let amd_id: Int
     let lg_bezeichnung: String
+    let created_at: String
 }
 
 extension LoudspeakerMessageRecord: Unboxable {
     
     init(unboxer: Unboxer) {
-        
         self.af_text = unboxer.unbox(key: "fields.af_text", isKeyPath: true)
         self.am_id = unboxer.unbox(key: "fields.am_id", isKeyPath: true)
         self.amd_id = unboxer.unbox(key: "fields.amd_id", isKeyPath: true)
         self.lg_bezeichnung = unboxer.unbox(key: "fields.lg_bezeichnung", isKeyPath: true)
-    }
-}
-
-
-extension LoudspeakerMessageRecord {
-    
-    func isInSamePlatform(other: LoudspeakerMessageRecord) -> Bool {
-        return self.lg_bezeichnung == other.lg_bezeichnung
+        self.created_at = unboxer.unbox(key: "fields.created_at", isKeyPath: true)
     }
 }

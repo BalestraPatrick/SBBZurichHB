@@ -16,7 +16,7 @@ class PlatformCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 8.0
+        layer.cornerRadius = 12.0
         layer.masksToBounds = true
     }
 }
