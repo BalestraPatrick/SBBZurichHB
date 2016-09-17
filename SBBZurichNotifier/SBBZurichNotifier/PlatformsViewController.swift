@@ -59,7 +59,7 @@ class PlatformsViewController: UIViewController {
     fileprivate func handlePlatformDictation(platform: Int?) {
         
         // UIKit fun
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             
             guard let platformNumber = platform else {
                 return self.showErrorMessage(platform: platform)
@@ -88,11 +88,10 @@ class PlatformsViewController: UIViewController {
     }
     
     @IBAction func about(_ sender: AnyObject) {
-        let alertController = UIAlertController(title: "Lalalal", message: "Miao", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "How to use the app", message: "Dictate or select a platform of the Zurich HB. You will be able to read and listen to the loudspeaker messages.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .destructive, handler: nil))
         present(alertController, animated: true)
     }
-    
 }
 
 extension PlatformsViewController: UICollectionViewDataSource {
@@ -125,7 +124,6 @@ extension PlatformsViewController: UICollectionViewDelegate {
         switch indexPath.row {
         case 0:
             let destination = UIStoryboard(name: "DictatePlatform", bundle: nil).instantiateViewController(withIdentifier: "DictatePlatformViewController") as! DictatePlatformViewController
-            destination.preferredContentSize = CGSize(width: 300, height: 300)
             destination.callback = handlePlatformDictation
             present(destination, animated: true)
         default:
