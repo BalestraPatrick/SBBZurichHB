@@ -38,9 +38,4 @@ class MessageCollectionViewCell: UICollectionViewCell {
             synthesizer.speak(utterance)
         }
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
 }

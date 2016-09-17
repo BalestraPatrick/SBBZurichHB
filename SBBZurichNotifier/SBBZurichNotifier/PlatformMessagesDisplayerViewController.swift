@@ -87,5 +87,4 @@ extension PlatformMessagesDisplayerViewController: UICollectionViewDataSource {
         cell.titleLabel.text = dateFormatter.string(from: date!)
         return cell
     }
-    
 }

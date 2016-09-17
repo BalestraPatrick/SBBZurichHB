@@ -28,9 +28,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIj-BH-1gK">
+                                <state key="normal" title="Confirm"/>
+                                <connections>
+                                    <action selector="confirm:" destination="Qxx-TS-M8r" eventType="touchUpInside" id="1nB-lF-59v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="bIj-BH-1gK" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="595-Fu-uBK"/>
+                            <constraint firstItem="bIj-BH-1gK" firstAttribute="top" secondItem="wrY-i1-iud" secondAttribute="bottom" constant="5" id="6lI-ff-yOG"/>
                             <constraint firstItem="wrY-i1-iud" firstAttribute="top" secondItem="i0C-98-7Dv" secondAttribute="bottom" constant="23" id="a6N-Cs-XJZ"/>
                             <constraint firstItem="i0C-98-7Dv" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="gsr-V1-T1B"/>
                             <constraint firstItem="wrY-i1-iud" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="mtY-uv-cej"/>
