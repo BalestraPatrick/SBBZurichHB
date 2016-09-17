@@ -59,7 +59,7 @@ class PlatformsViewController: UIViewController {
     fileprivate func handlePlatformDictation(platform: Int?) {
         
         // UIKit fun
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             
             guard let platformNumber = platform else {
                 return self.showErrorMessage(platform: platform)
