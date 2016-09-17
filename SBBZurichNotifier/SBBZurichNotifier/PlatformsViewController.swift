@@ -124,10 +124,8 @@ extension PlatformsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let destination = UIStoryboard(name: "Platforms", bundle: nil).instantiateViewController(withIdentifier: "DictatePlatformViewController") as! DictatePlatformViewController
+            let destination = UIStoryboard(name: "DictatePlatform", bundle: nil).instantiateViewController(withIdentifier: "DictatePlatformViewController") as! DictatePlatformViewController
             destination.preferredContentSize = CGSize(width: 300, height: 300)
-            destination.transitioningDelegate = self
-            destination.modalPresentationStyle = .custom
             destination.callback = handlePlatformDictation
             present(destination, animated: true)
         default:
@@ -147,12 +145,5 @@ extension PlatformsViewController {
                 destination.messages = platformsMessages[platform]!
             }
         }
-    }
-}
-
-extension PlatformsViewController: UIViewControllerTransitioningDelegate {
-    
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
-        return PageSheetPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

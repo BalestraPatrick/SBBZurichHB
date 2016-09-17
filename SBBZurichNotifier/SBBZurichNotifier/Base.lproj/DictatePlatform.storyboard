@@ -9,48 +9,96 @@
         <!--Dictate Platform View Controller-->
         <scene sceneID="4cY-oq-EnM">
             <objects>
-                <viewController storyboardIdentifier="DictatePlatformViewController" definesPresentationContext="YES" modalPresentationStyle="overFullScreen" id="Qxx-TS-M8r" customClass="DictatePlatformViewController" customModule="SBBZurichNotifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DictatePlatformViewController" definesPresentationContext="YES" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Qxx-TS-M8r" customClass="DictatePlatformViewController" customModule="SBBZurichNotifier" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="djM-Yf-TKn"/>
                         <viewControllerLayoutGuide type="bottom" id="9Ta-Dp-fSo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FVR-yX-Kje">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                    <view key="view" alpha="0.0" contentMode="scaleToFill" id="FVR-yX-Kje">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which platform are you on?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0C-98-7Dv">
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrY-i1-iud">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIj-BH-1gK">
-                                <state key="normal" title="Confirm"/>
-                                <connections>
-                                    <action selector="confirm:" destination="Qxx-TS-M8r" eventType="touchUpInside" id="1nB-lF-59v"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZxR-nj-Un7">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say the number loud..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrY-i1-iud">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which platform are you on?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0C-98-7Dv">
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIj-BH-1gK">
+                                        <color key="backgroundColor" red="1" green="0.052485318789999999" blue="0.084548028519999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="TAt-FF-81L"/>
+                                        </constraints>
+                                        <state key="normal" title="Confirm">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="confirm:" destination="Qxx-TS-M8r" eventType="touchUpInside" id="1nB-lF-59v"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FK8-px-jES">
+                                        <color key="backgroundColor" red="1" green="0.052485318789999999" blue="0.084548028519999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="LHZ-OV-r19"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="dismiss:" destination="Qxx-TS-M8r" eventType="touchUpInside" id="cXd-R4-Boy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="wrY-i1-iud" firstAttribute="centerX" secondItem="ZxR-nj-Un7" secondAttribute="centerX" id="7a9-H6-nwJ"/>
+                                    <constraint firstAttribute="width" constant="300" id="Q7X-Mo-Gc8"/>
+                                    <constraint firstItem="FK8-px-jES" firstAttribute="leading" secondItem="ZxR-nj-Un7" secondAttribute="leading" constant="20" id="US6-39-O8m"/>
+                                    <constraint firstItem="i0C-98-7Dv" firstAttribute="centerX" secondItem="ZxR-nj-Un7" secondAttribute="centerX" id="V8d-yh-I1k"/>
+                                    <constraint firstAttribute="bottom" secondItem="bIj-BH-1gK" secondAttribute="bottom" constant="20" id="Wn5-Qp-JNv"/>
+                                    <constraint firstItem="i0C-98-7Dv" firstAttribute="leading" secondItem="ZxR-nj-Un7" secondAttribute="leading" constant="20" id="dnZ-g5-qZL"/>
+                                    <constraint firstItem="wrY-i1-iud" firstAttribute="top" secondItem="i0C-98-7Dv" secondAttribute="bottom" constant="25" id="fuN-cc-h0Z"/>
+                                    <constraint firstItem="bIj-BH-1gK" firstAttribute="top" secondItem="wrY-i1-iud" secondAttribute="bottom" constant="25" id="gAy-SK-uBi"/>
+                                    <constraint firstItem="FK8-px-jES" firstAttribute="baseline" secondItem="bIj-BH-1gK" secondAttribute="baseline" id="qK3-8X-jdB"/>
+                                    <constraint firstAttribute="trailing" secondItem="bIj-BH-1gK" secondAttribute="trailing" constant="20" id="r75-sq-I2k"/>
+                                    <constraint firstItem="i0C-98-7Dv" firstAttribute="top" secondItem="ZxR-nj-Un7" secondAttribute="top" constant="20" id="w2Z-iE-Jyv"/>
+                                    <constraint firstAttribute="trailing" secondItem="i0C-98-7Dv" secondAttribute="trailing" constant="20" id="yHA-wn-K3v"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="bIj-BH-1gK" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="595-Fu-uBK"/>
-                            <constraint firstItem="bIj-BH-1gK" firstAttribute="top" secondItem="wrY-i1-iud" secondAttribute="bottom" constant="5" id="6lI-ff-yOG"/>
-                            <constraint firstItem="wrY-i1-iud" firstAttribute="top" secondItem="i0C-98-7Dv" secondAttribute="bottom" constant="23" id="a6N-Cs-XJZ"/>
-                            <constraint firstItem="i0C-98-7Dv" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="gsr-V1-T1B"/>
-                            <constraint firstItem="wrY-i1-iud" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="mtY-uv-cej"/>
-                            <constraint firstItem="i0C-98-7Dv" firstAttribute="top" secondItem="djM-Yf-TKn" secondAttribute="bottom" constant="8" id="w0w-tK-czO"/>
+                            <constraint firstItem="ZxR-nj-Un7" firstAttribute="centerY" secondItem="FVR-yX-Kje" secondAttribute="centerY" id="Kzc-mN-rdI"/>
+                            <constraint firstItem="ZxR-nj-Un7" firstAttribute="centerX" secondItem="FVR-yX-Kje" secondAttribute="centerX" id="lYc-5x-OZa"/>
                         </constraints>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="300"/>
                     <connections>
+                        <outlet property="backgroundView" destination="FVR-yX-Kje" id="7Yp-XM-uk4"/>
                         <outlet property="responseLabel" destination="wrY-i1-iud" id="iIV-Ja-frl"/>
+                        <outlet property="topView" destination="ZxR-nj-Un7" id="J2d-Me-aOM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9fn-hw-0mB" userLabel="First Responder" sceneMemberID="firstResponder"/>
