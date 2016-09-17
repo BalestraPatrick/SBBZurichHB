@@ -14,7 +14,8 @@ class MessageCollectionViewCell: UICollectionViewCell {
     public static let reuseIdentifier = "MessageCollectionViewCell"
     
     @IBOutlet internal weak var titleLabel: UILabel!
-    @IBOutlet internal weak var messageTextView: UITextView!
+    @IBOutlet internal weak var messageLabel: UILabel!
+    @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     
     private lazy var synthesizer = AVSpeechSynthesizer()
     
@@ -23,6 +24,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         
         layer.cornerRadius = 12.0
         layer.masksToBounds = true
+        widthConstraint.constant = UIScreen.main.bounds.width - 40
     }
     
     @IBAction func speak(_ sender: AnyObject) {
@@ -32,7 +34,7 @@ class MessageCollectionViewCell: UICollectionViewCell {
         } else if synthesizer.isSpeaking {
             synthesizer.pauseSpeaking(at: .word)
         } else {
-            let utterance = AVSpeechUtterance(string: messageTextView.text)
+            let utterance = AVSpeechUtterance(string: messageLabel.text!)
             utterance.voice = AVSpeechSynthesisVoice(language: "de_DE")
             utterance.rate = 0.35
             synthesizer.speak(utterance)

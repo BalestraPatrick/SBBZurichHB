@@ -20,6 +20,7 @@ class PlatformMessagesDisplayerViewController: UIViewController {
     
     @IBOutlet fileprivate weak var platformLabel: UILabel!
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
+    
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -31,8 +32,9 @@ class PlatformMessagesDisplayerViewController: UIViewController {
         super.viewDidLoad()
 
         platformLabel.text = platform
-        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 100)
         analyzeMessages()
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
+        (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 100)
     }
     
     func analyzeMessages() {
@@ -82,9 +84,16 @@ extension PlatformMessagesDisplayerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MessageCollectionViewCell.reuseIdentifier, for: indexPath) as! MessageCollectionViewCell
-        cell.messageTextView.text = Array(dataSource.keys)[indexPath.row]
+        cell.messageLabel.text = Array(dataSource.keys)[indexPath.row]
         let date = Array(dataSource.values)[indexPath.row ].first?.created_at_date
         cell.titleLabel.text = dateFormatter.string(from: date!)
         return cell
     }
+}
+
+extension PlatformMessagesDisplayerViewController: UICollectionViewDelegateFlowLayout {
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: UIScreen.main.bounds.width - 40, height: 150)
+//    }
 }
