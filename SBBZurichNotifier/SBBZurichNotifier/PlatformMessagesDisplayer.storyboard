@@ -68,15 +68,15 @@
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="b5X-q7-rR6" firstAttribute="leading" secondItem="kfe-a5-RwC" secondAttribute="leading" constant="8" id="7Pd-Kc-jtA"/>
+                                                                        <constraint firstItem="b5X-q7-rR6" firstAttribute="leading" secondItem="kfe-a5-RwC" secondAttribute="leading" constant="12" id="7Pd-Kc-jtA"/>
                                                                         <constraint firstAttribute="bottom" secondItem="b5X-q7-rR6" secondAttribute="bottom" constant="8" id="BWu-CY-vcB"/>
                                                                         <constraint firstAttribute="bottom" secondItem="J2s-Tm-bEp" secondAttribute="bottom" constant="8" id="RnC-hM-9RB"/>
                                                                         <constraint firstItem="J2s-Tm-bEp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4xi-0x-jtU" secondAttribute="bottom" constant="10" id="ZNM-0c-j0L"/>
                                                                         <constraint firstItem="4xi-0x-jtU" firstAttribute="top" secondItem="kfe-a5-RwC" secondAttribute="top" constant="8" id="bbe-ZX-cng"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="J2s-Tm-bEp" secondAttribute="trailing" constant="8" id="dnE-w2-g9J"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="J2s-Tm-bEp" secondAttribute="trailing" constant="12" id="dnE-w2-g9J"/>
                                                                         <constraint firstItem="b5X-q7-rR6" firstAttribute="top" secondItem="kfe-a5-RwC" secondAttribute="top" constant="8" id="eL0-GD-2Sq"/>
                                                                         <constraint firstItem="J2s-Tm-bEp" firstAttribute="leading" secondItem="b5X-q7-rR6" secondAttribute="trailing" constant="8" id="lzg-1o-Qne"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="4xi-0x-jtU" secondAttribute="trailing" constant="8" id="uHN-pQ-Yqc"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="4xi-0x-jtU" secondAttribute="trailing" constant="12" id="uHN-pQ-Yqc"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <vibrancyEffect>

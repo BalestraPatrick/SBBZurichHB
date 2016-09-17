@@ -24,7 +24,7 @@ class PlatformsViewController: UIViewController {
                     platforms.append(platform)
                 }
             }
-            self.platforms = platforms
+            self.platforms = platforms.sorted(by: { $0.localizedStandardCompare($1) == ComparisonResult.orderedAscending })
         }
     }
     
