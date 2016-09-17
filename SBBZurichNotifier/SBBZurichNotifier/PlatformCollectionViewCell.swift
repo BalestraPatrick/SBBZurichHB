@@ -13,4 +13,10 @@ class PlatformCollectionViewCell: UICollectionViewCell {
     public static let reuseIdentifier = "PlatformCollectionViewCell"
     
     @IBOutlet  weak var titleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        layer.cornerRadius = 8.0
+        layer.masksToBounds = true
+    }
 }

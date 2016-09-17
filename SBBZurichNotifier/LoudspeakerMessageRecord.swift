@@ -26,3 +26,11 @@ extension LoudspeakerMessageRecord: Unboxable {
         self.lg_bezeichnung = unboxer.unbox(key: "fields.lg_bezeichnung", isKeyPath: true)
     }
 }
+
+
+extension LoudspeakerMessageRecord {
+    
+    func isInSamePlatform(other: LoudspeakerMessageRecord) -> Bool {
+        return self.lg_bezeichnung == other.lg_bezeichnung
+    }
+}

@@ -10,17 +10,33 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    
+    var dataSource: [String: Any] = [:]
+    
+    var platforms: [String] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barTintColor = UIColor.clear
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.barStyle = .black
+        self.title = "Platforms"
+        
         LoudspeakerMessageRequest().getMessages(forPlatform: "41/42") { messages in
-            print(messages)
+            var platforms = [String]()
             messages.forEach { message in
-                message.value.forEach({ (record) in
-                    
-                })
+                if let platform = message.value.first?.lg_bezeichnung, platforms.contains(platform) == false {
+                    platforms.append(platform)
+                }
             }
+            self.platforms = platforms
+            self.dataSource = messages
         }
     }
     
@@ -36,12 +52,12 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return platforms.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlatformCollectionViewCell.reuseIdentifier, for: indexPath) as! PlatformCollectionViewCell
-        cell.titleLabel.text = "Miao"
+        cell.titleLabel.text = platforms[indexPath.row]
         return cell
     }
 }
