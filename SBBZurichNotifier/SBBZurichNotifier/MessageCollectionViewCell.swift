@@ -16,6 +16,8 @@ class MessageCollectionViewCell: UICollectionViewCell {
     @IBOutlet internal weak var titleLabel: UILabel!
     @IBOutlet internal weak var messageLabel: UILabel!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
+    weak var controller: PlatformMessagesDisplayerViewController?
+    var indexPath: IndexPath?
     
     private lazy var synthesizer = AVSpeechSynthesizer()
     
@@ -28,16 +30,6 @@ class MessageCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func speak(_ sender: AnyObject) {
-        
-        if synthesizer.isPaused {
-            synthesizer.continueSpeaking()
-        } else if synthesizer.isSpeaking {
-            synthesizer.pauseSpeaking(at: .word)
-        } else {
-            let utterance = AVSpeechUtterance(string: messageLabel.text!)
-            utterance.voice = AVSpeechSynthesisVoice(language: "de_DE")
-            utterance.rate = 0.35
-            synthesizer.speak(utterance)
-        }
+        controller?.speak(text: messageLabel.text!, indexPath: indexPath)
     }
 }

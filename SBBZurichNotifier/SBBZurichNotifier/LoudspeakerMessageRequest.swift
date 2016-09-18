@@ -32,7 +32,7 @@ class LoudspeakerMessageRequest {
             URLQueryItem(name: "rows", value: "250"),
             URLQueryItem(name: "facet", value: "lg_bezeichnung"),
             URLQueryItem(name: "sort", value: "-amd_id"),
-            URLQueryItem(name: "created_at_date", value: ">2016-08-26T12:55:02+00:00")
+            URLQueryItem(name: "created_at_date", value: ">2016-08-28T08:55:02+00:00")
         ]
         
         Alamofire

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PlatformMessagesDisplayerViewController: UIViewController {
     
@@ -20,7 +21,9 @@ class PlatformMessagesDisplayerViewController: UIViewController {
     
     @IBOutlet fileprivate weak var platformLabel: UILabel!
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
-    
+    private lazy var synthesizer = AVSpeechSynthesizer()
+    private var currentIndexPath: IndexPath?
+
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -35,6 +38,30 @@ class PlatformMessagesDisplayerViewController: UIViewController {
         analyzeMessages()
         (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
         (collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 100)
+    }
+    
+    func speak(text: String, indexPath: IndexPath?) {
+        currentIndexPath = indexPath
+        
+        if synthesizer.isPaused {
+            synthesizer.continueSpeaking()
+        } else if synthesizer.isSpeaking {
+            if indexPath != currentIndexPath {
+                synthesizer.pauseSpeaking(at: .immediate)
+                synthesizer = AVSpeechSynthesizer()
+                let utterance = AVSpeechUtterance(string: text)
+                utterance.voice = AVSpeechSynthesisVoice(language: "de_DE")
+                utterance.rate = 0.35
+                synthesizer.speak(utterance)
+            }
+            synthesizer.pauseSpeaking(at: .word)
+        } else {
+            synthesizer = AVSpeechSynthesizer()
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.voice = AVSpeechSynthesisVoice(language: "de_DE")
+            utterance.rate = 0.35
+            synthesizer.speak(utterance)
+        }
     }
     
     func analyzeMessages() {
@@ -67,6 +94,7 @@ class PlatformMessagesDisplayerViewController: UIViewController {
     }
     
     @IBAction func dismiss(_ sender: AnyObject) {
+        synthesizer.pauseSpeaking(at: .immediate)
         dismiss(animated: true)
     }
 }
@@ -87,6 +115,8 @@ extension PlatformMessagesDisplayerViewController: UICollectionViewDataSource {
         cell.messageLabel.text = Array(dataSource.keys)[indexPath.row]
         let date = Array(dataSource.values)[indexPath.row ].first?.created_at_date
         cell.titleLabel.text = dateFormatter.string(from: date!)
+        cell.controller = self
+        cell.indexPath = indexPath
         return cell
     }
 }
