@@ -1,7 +1,7 @@
 //
 //  URLProtocolTests.swift
 //
-//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2017 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,11 @@ class ProxyURLProtocol: URLProtocol {
 
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
         if let headers = request.allHTTPHeaderFields {
-            return ParameterEncoding.url.encode(request, parameters: headers).0
+            do {
+                return try URLEncoding.default.encode(request, with: headers)
+            } catch {
+                return request
+            }
         }
 
         return request
@@ -74,12 +78,10 @@ class ProxyURLProtocol: URLProtocol {
     // MARK: Loading Methods
 
     override func startLoading() {
-        // rdar://26849668
-        // Hopefully will be fixed in a future seed
-        // URLProtocol had some API's that didnt make the value type conversion
-        let mutableRequest = (request.urlRequest as NSURLRequest).mutableCopy() as! NSMutableURLRequest
-        URLProtocol.setProperty(true, forKey: PropertyKeys.handledByForwarderURLProtocol, in: mutableRequest)
-        activeTask = session.dataTask(with: mutableRequest as URLRequest)
+        // rdar://26849668 - URLProtocol had some API's that didnt make the value type conversion
+        let urlRequest = (request.urlRequest! as NSURLRequest).mutableCopy() as! NSMutableURLRequest
+        URLProtocol.setProperty(true, forKey: PropertyKeys.handledByForwarderURLProtocol, in: urlRequest)
+        activeTask = session.dataTask(with: urlRequest as URLRequest)
         activeTask?.resume()
     }
 
@@ -90,15 +92,15 @@ class ProxyURLProtocol: URLProtocol {
 
 // MARK: -
 
-extension ProxyURLProtocol: URLSessionDelegate {
+extension ProxyURLProtocol: URLSessionDataDelegate {
 
     // MARK: NSURLSessionDelegate
 
-    func URLSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceiveData data: Data) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         client?.urlProtocol(self, didLoad: data)
     }
 
-    func URLSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let response = task.response {
             client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
         }
@@ -121,7 +123,7 @@ class URLProtocolTestCase: BaseTestCase {
             let configuration: URLSessionConfiguration = {
                 let configuration = URLSessionConfiguration.default
                 configuration.protocolClasses = [ProxyURLProtocol.self]
-                configuration.httpAdditionalHeaders = ["session-configuration-header": "foo"]
+                configuration.httpAdditionalHeaders = ["Session-Configuration-Header": "foo"]
 
                 return configuration
             }()
@@ -139,37 +141,36 @@ class URLProtocolTestCase: BaseTestCase {
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.get.rawValue
-        urlRequest.setValue("foobar", forHTTPHeaderField: "request-header")
+        urlRequest.setValue("foobar", forHTTPHeaderField: "Request-Header")
 
         let expectation = self.expectation(description: "GET request should succeed")
 
-        var request: URLRequest?
-        var response: HTTPURLResponse?
-        var data: Data?
-        var error: Error?
+        var response: DefaultDataResponse?
 
         // When
         manager.request(urlRequest)
-            .response { responseRequest, responseResponse, responseData, responseError in
-                request = responseRequest
-                response = responseResponse
-                data = responseData
-                error = responseError
-
+            .response { resp in
+                response = resp
                 expectation.fulfill()
             }
 
         waitForExpectations(timeout: timeout, handler: nil)
 
         // Then
-        XCTAssertNotNil(request, "request should not be nil")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertNotNil(data, "data should not be nil")
-        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(response?.request)
+        XCTAssertNotNil(response?.response)
+        XCTAssertNotNil(response?.data)
+        XCTAssertNil(response?.error)
 
-        if let headers = response?.allHeaderFields {
-            XCTAssertEqual(headers["request-header"] as? String, "foobar")
-            XCTAssertEqual(headers["session-configuration-header"] as? String, "foo")
+        if let headers = response?.response?.allHeaderFields as? [String: String] {
+            XCTAssertEqual(headers["Request-Header"], "foobar")
+
+            // Configuration headers are only passed in on iOS 9.0+
+            if #available(iOS 9.0, *) {
+                XCTAssertEqual(headers["Session-Configuration-Header"], "foo")
+            } else {
+                XCTAssertNil(headers["Session-Configuration-Header"])
+            }
         } else {
             XCTFail("headers should not be nil")
         }

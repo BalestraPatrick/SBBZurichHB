@@ -76,6 +76,6 @@ class DictatePlatformViewController: UIViewController {
         
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .spellOut
-        return numberFormatter.number(from: responseLabel.text!.lowercased()) as Int?
+        return numberFormatter.number(from: responseLabel.text!.lowercased())?.intValue
     }
 }

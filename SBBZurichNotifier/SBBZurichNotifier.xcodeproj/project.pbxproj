@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE40D9A21D8C805800D68585 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE40D9A11D8C805800D68585 /* Alamofire.framework */; };
 		AE5CECD71D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5CECD61D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift */; };
 		AE5CECD91D8CC55F00DA2FA2 /* PlatformCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5CECD81D8CC55F00DA2FA2 /* PlatformCollectionViewCell.swift */; };
 		AE5CECDB1D8CFA1000DA2FA2 /* PlatformMessagesDisplayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5CECDA1D8CFA1000DA2FA2 /* PlatformMessagesDisplayerViewController.swift */; };
@@ -24,10 +23,10 @@
 		AEBDF84B1D8D73DA00A1AA6D /* DictatePlatform.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AEBDF8491D8D73DA00A1AA6D /* DictatePlatform.storyboard */; };
 		AEBDF84D1D8D747900A1AA6D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBDF84C1D8D747900A1AA6D /* Event.swift */; };
 		AED0C76B1D8D6F2F00E66C7D /* DictatePlatformViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED0C76A1D8D6F2F00E66C7D /* DictatePlatformViewController.swift */; };
+		C999F5D71FF6B96D002274EF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C999F5D61FF6B96D002274EF /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AE40D9A11D8C805800D68585 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		AE5CECD61D8CB46700DA2FA2 /* LoudspeakerMessageRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoudspeakerMessageRecord.swift; path = ../LoudspeakerMessageRecord.swift; sourceTree = "<group>"; };
 		AE5CECD81D8CC55F00DA2FA2 /* PlatformCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformCollectionViewCell.swift; sourceTree = "<group>"; };
 		AE5CECDA1D8CFA1000DA2FA2 /* PlatformMessagesDisplayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformMessagesDisplayerViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +45,7 @@
 		AEBDF84A1D8D73DA00A1AA6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DictatePlatform.storyboard; sourceTree = "<group>"; };
 		AEBDF84C1D8D747900A1AA6D /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		AED0C76A1D8D6F2F00E66C7D /* DictatePlatformViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictatePlatformViewController.swift; sourceTree = "<group>"; };
+		C999F5D61FF6B96D002274EF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE40D9A21D8C805800D68585 /* Alamofire.framework in Frameworks */,
+				C999F5D71FF6B96D002274EF /* Alamofire.framework in Frameworks */,
 				AE86B5041D8CA41800121610 /* Unbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,8 +64,8 @@
 		AE40D9A01D8C805800D68585 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C999F5D61FF6B96D002274EF /* Alamofire.framework */,
 				AE86B5021D8CA27300121610 /* Unbox.framework */,
-				AE40D9A11D8C805800D68585 /* Alamofire.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -170,12 +170,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Patrick Balestra";
 				TargetAttributes = {
 					AEA5B8E51D8C7C4300A64D95 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 2EZDW5DVTJ;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -288,7 +289,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -296,7 +299,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -337,7 +345,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -345,7 +355,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -384,7 +399,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickbalestra.SBBZurichNotifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -402,7 +418,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.patrickbalestra.SBBZurichNotifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

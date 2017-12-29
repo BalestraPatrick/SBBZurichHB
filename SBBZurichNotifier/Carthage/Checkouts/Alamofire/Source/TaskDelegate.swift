@@ -1,7 +1,7 @@
 //
-//  Error.swift
+//  TaskDelegate.swift
 //
-//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2017 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -33,20 +33,38 @@ open class TaskDelegate: NSObject {
     /// The serial operation queue used to execute all operations after the task completes.
     open let queue: OperationQueue
 
-    var task: URLSessionTask
-    let progress: Progress
+    /// The data returned by the server.
+    public var data: Data? { return nil }
 
-    var data: Data? { return nil }
-    var error: Error?
+    /// The error generated throughout the lifecyle of the task.
+    public var error: Error?
+
+    var task: URLSessionTask? {
+        set {
+            taskLock.lock(); defer { taskLock.unlock() }
+            _task = newValue
+        }
+        get {
+            taskLock.lock(); defer { taskLock.unlock() }
+            return _task
+        }
+    }
 
     var initialResponseTime: CFAbsoluteTime?
     var credential: URLCredential?
+    var metrics: AnyObject? // URLSessionTaskMetrics
+
+    private var _task: URLSessionTask? {
+        didSet { reset() }
+    }
+
+    private let taskLock = NSLock()
 
     // MARK: Lifecycle
 
-    init(task: URLSessionTask) {
-        self.task = task
-        self.progress = Progress(totalUnitCount: 0)
+    init(task: URLSessionTask?) {
+        _task = task
+
         self.queue = {
             let operationQueue = OperationQueue()
 
@@ -56,6 +74,11 @@ open class TaskDelegate: NSObject {
 
             return operationQueue
         }()
+    }
+
+    func reset() {
+        error = nil
+        initialResponseTime = nil
     }
 
     // MARK: URLSessionTaskDelegate
@@ -97,7 +120,8 @@ open class TaskDelegate: NSObject {
         } else if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
             let host = challenge.protectionSpace.host
 
-            if let serverTrustPolicy = session.serverTrustPolicyManager?.serverTrustPolicy(forHost: host),
+            if
+                let serverTrustPolicy = session.serverTrustPolicyManager?.serverTrustPolicy(forHost: host),
                 let serverTrust = challenge.protectionSpace.serverTrust
             {
                 if serverTrustPolicy.evaluate(serverTrust, forHost: host) {
@@ -143,7 +167,7 @@ open class TaskDelegate: NSObject {
             taskDidCompleteWithError(session, task, error)
         } else {
             if let error = error {
-                self.error = error
+                if self.error == nil { self.error = error }
 
                 if
                     let downloadDelegate = self as? DownloadTaskDelegate,
@@ -164,7 +188,7 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
 
     // MARK: Properties
 
-    var dataTask: URLSessionDataTask? { return task as? URLSessionDataTask }
+    var dataTask: URLSessionDataTask { return task as! URLSessionDataTask }
 
     override var data: Data? {
         if dataStream != nil {
@@ -174,7 +198,9 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
         }
     }
 
-    var dataProgress: ((_ bytesReceived: Int64, _ totalBytesReceived: Int64, _ totalBytesExpectedToReceive: Int64) -> Void)?
+    var progress: Progress
+    var progressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
+
     var dataStream: ((_ data: Data) -> Void)?
 
     private var totalBytesReceived: Int64 = 0
@@ -184,9 +210,20 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
 
     // MARK: Lifecycle
 
-    override init(task: URLSessionTask) {
+    override init(task: URLSessionTask?) {
         mutableData = Data()
+        progress = Progress(totalUnitCount: 0)
+
         super.init(task: task)
+    }
+
+    override func reset() {
+        super.reset()
+
+        progress = Progress(totalUnitCount: 0)
+        totalBytesReceived = 0
+        mutableData = Data()
+        expectedContentLength = nil
     }
 
     // MARK: URLSessionDataDelegate
@@ -200,7 +237,7 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
         _ session: URLSession,
         dataTask: URLSessionDataTask,
         didReceive response: URLResponse,
-        completionHandler: ((URLSession.ResponseDisposition) -> Void))
+        completionHandler: @escaping (URLSession.ResponseDisposition) -> Void)
     {
         var disposition: URLSession.ResponseDisposition = .allow
 
@@ -240,11 +277,9 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
             progress.totalUnitCount = totalBytesExpected
             progress.completedUnitCount = totalBytesReceived
 
-            dataProgress?(
-                bytesReceived,
-                totalBytesReceived,
-                totalBytesExpected
-            )
+            if let progressHandler = progressHandler {
+                progressHandler.queue.async { progressHandler.closure(self.progress) }
+            }
         }
     }
 
@@ -252,7 +287,7 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
         _ session: URLSession,
         dataTask: URLSessionDataTask,
         willCacheResponse proposedResponse: CachedURLResponse,
-        completionHandler: ((CachedURLResponse?) -> Void))
+        completionHandler: @escaping (CachedURLResponse?) -> Void)
     {
         var cachedResponse: CachedURLResponse? = proposedResponse
 
@@ -270,11 +305,34 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
 
     // MARK: Properties
 
-    var downloadTask: URLSessionDownloadTask? { return task as? URLSessionDownloadTask }
-    var downloadProgress: ((Int64, Int64, Int64) -> Void)?
+    var downloadTask: URLSessionDownloadTask { return task as! URLSessionDownloadTask }
+
+    var progress: Progress
+    var progressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
 
     var resumeData: Data?
     override var data: Data? { return resumeData }
+
+    var destination: DownloadRequest.DownloadFileDestination?
+
+    var temporaryURL: URL?
+    var destinationURL: URL?
+
+    var fileURL: URL? { return destination != nil ? destinationURL : temporaryURL }
+
+    // MARK: Lifecycle
+
+    override init(task: URLSessionTask?) {
+        progress = Progress(totalUnitCount: 0)
+        super.init(task: task)
+    }
+
+    override func reset() {
+        super.reset()
+
+        progress = Progress(totalUnitCount: 0)
+        resumeData = nil
+    }
 
     // MARK: URLSessionDownloadDelegate
 
@@ -287,13 +345,32 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
         downloadTask: URLSessionDownloadTask,
         didFinishDownloadingTo location: URL)
     {
-        if let downloadTaskDidFinishDownloadingToURL = downloadTaskDidFinishDownloadingToURL {
-            do {
-                let destination = downloadTaskDidFinishDownloadingToURL(session, downloadTask, location)
-                try FileManager.default.moveItem(at: location, to: destination)
-            } catch {
-                self.error = error
+        temporaryURL = location
+
+        guard
+            let destination = destination,
+            let response = downloadTask.response as? HTTPURLResponse
+        else { return }
+
+        let result = destination(location, response)
+        let destinationURL = result.destinationURL
+        let options = result.options
+
+        self.destinationURL = destinationURL
+
+        do {
+            if options.contains(.removePreviousFile), FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
             }
+
+            if options.contains(.createIntermediateDirectories) {
+                let directory = destinationURL.deletingLastPathComponent()
+                try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            }
+
+            try FileManager.default.moveItem(at: location, to: destinationURL)
+        } catch {
+            self.error = error
         }
     }
 
@@ -318,7 +395,9 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
             progress.totalUnitCount = totalBytesExpectedToWrite
             progress.completedUnitCount = totalBytesWritten
 
-            downloadProgress?(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
+            if let progressHandler = progressHandler {
+                progressHandler.queue.async { progressHandler.closure(self.progress) }
+            }
         }
     }
 
@@ -343,8 +422,22 @@ class UploadTaskDelegate: DataTaskDelegate {
 
     // MARK: Properties
 
-    var uploadTask: URLSessionUploadTask? { return task as? URLSessionUploadTask }
-    var uploadProgress: ((Int64, Int64, Int64) -> Void)!
+    var uploadTask: URLSessionUploadTask { return task as! URLSessionUploadTask }
+
+    var uploadProgress: Progress
+    var uploadProgressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
+
+    // MARK: Lifecycle
+
+    override init(task: URLSessionTask?) {
+        uploadProgress = Progress(totalUnitCount: 0)
+        super.init(task: task)
+    }
+
+    override func reset() {
+        super.reset()
+        uploadProgress = Progress(totalUnitCount: 0)
+    }
 
     // MARK: URLSessionTaskDelegate
 
@@ -362,10 +455,12 @@ class UploadTaskDelegate: DataTaskDelegate {
         if let taskDidSendBodyData = taskDidSendBodyData {
             taskDidSendBodyData(session, task, bytesSent, totalBytesSent, totalBytesExpectedToSend)
         } else {
-            progress.totalUnitCount = totalBytesExpectedToSend
-            progress.completedUnitCount = totalBytesSent
+            uploadProgress.totalUnitCount = totalBytesExpectedToSend
+            uploadProgress.completedUnitCount = totalBytesSent
 
-            uploadProgress?(bytesSent, totalBytesSent, totalBytesExpectedToSend)
+            if let uploadProgressHandler = uploadProgressHandler {
+                uploadProgressHandler.queue.async { uploadProgressHandler.closure(self.uploadProgress) }
+            }
         }
     }
 }
