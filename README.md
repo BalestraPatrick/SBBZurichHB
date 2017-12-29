@@ -12,7 +12,7 @@ On my way to [HackZurich](https://www.hackzurich.com), I noticed a blind person 
 I implemented the new iOS 10 Siri APIs to do speech recognition to find out the platform on which the user is located. Another way is to manually select it from the list. After selecting a platform, the user is presented with a list of the messages which can also played with the Siri voice.
 
 ## Requirements
-iOS 10.0 and Swift 3.0 are required. It also uses Carthage.
+iOS 10.0+ and Swift 4.0+ are required. It also uses Carthage.
 
 ## Author
 
