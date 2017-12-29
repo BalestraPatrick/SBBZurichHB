@@ -82,7 +82,7 @@ class PlatformsViewController: UIViewController {
     }
     
     private func showErrorMessage(platform: Int?) {
-        let alert = UIAlertController(title: "Could not find any message for the platform \(platform)", message: "Please try again later.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Could not find any message for the platform \(String(describing: platform))", message: "Please try again later.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive))
         self.present(alert, animated: true)
     }
